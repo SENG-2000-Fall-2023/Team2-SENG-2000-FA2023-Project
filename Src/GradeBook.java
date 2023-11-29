@@ -16,32 +16,49 @@ public class GradeBook {
         studentOrder.add(name);
     }
 
-    public void removeStudent(String name) throws Exception {
+    public void removeStudent(String name) throws StudentNotFoundException {
         if (!students.containsKey(name)) {
-            throw new Exception("Student not found");
+            throw new StudentNotFoundException("Student not found");
         }
         students.remove(name);
         studentOrder.remove(name);
     }
 
-    public void addGrade(String name, String subject, int grade) throws Exception {
+    public void addGrade(String name, String subject, int grade) throws StudentNotFoundException {
         if (!students.containsKey(name)) {
-            throw new Exception("Student not found");
+            throw new StudentNotFoundException("Student not found");
         }
         students.get(name).addGrade(subject, grade);
     }
 
-    public ArrayList<Integer> getGrade(String name, String subject) throws Exception {
+    public ArrayList<Integer> getGrade(String name, String subject) throws StudentNotFoundException {
         if (!students.containsKey(name)) {
-            throw new Exception("Student not found");
+            throw new StudentNotFoundException("Student not found");
         }
         return students.get(name).getGrade(subject);
     }
 
-    public float getGPA(String name) throws Exception {
+    public float getGPA(String name) throws StudentNotFoundException {
         if (!students.containsKey(name)) {
-            throw new Exception("Student not found");
+            throw new StudentNotFoundException("Student not found");
         }
         return students.get(name).calculateGPA();
+    }
+
+    public void showAllStudentsAndGrades() {
+        for (String name : studentOrder) {
+            System.out.println(name + ":");
+            Student student = students.get(name);
+            for (String subject : student.grades.keySet()) {
+                System.out.println("  " + subject + " " + student.getGrade(subject));
+            }
+            System.out.println();
+        }
+    }
+
+    public class StudentNotFoundException extends Exception {
+        public StudentNotFoundException(String message) {
+            super(message);
+        }
     }
 }

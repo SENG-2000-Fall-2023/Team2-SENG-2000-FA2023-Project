@@ -12,88 +12,61 @@ public class Student implements Serializable {
     }
 
     public void addGrade(String subject, Integer grade) {
-        //check if subject is not already in gradebook
-        if(!grades.containsKey(subject)){
-        grades.put(subject, new ArrayList<Integer>());
+        // check if subject is not already in gradebook
+        if (!grades.containsKey(subject)) {
+            grades.put(subject, new ArrayList<Integer>());
+        }
+        // subject exists, add grade to list
         grades.get(subject).add(grade);
     }
-        //subject exists, add grade to list
-        else{
-           grades.get(subject).add(grade); 
-        }
-    }
 
-    public ArrayList<Integer> getGrade(String subject) throws Exception {
-        if (!grades.containsKey(subject)) {
-            throw new Exception("Subject not found");
-        }
-        return grades.get(subject);
+    public ArrayList<Integer> getGrade(String subject) {
+        return grades.getOrDefault(subject, new ArrayList<>());
     }
 
     public float calculateGPA() {
-        
-        double totalgpa = 0;
+        double totalGPA = 0;
+        int subjectCount = 0;
 
-        for (ArrayList<Integer> gradelist : grades.values()) {
-            int total = 0;
-            float subjectavg = 0;
-            for (Integer i : gradelist) {
-                total+= i;
+        for (ArrayList<Integer> gradeList : grades.values()) {
+            if (!gradeList.isEmpty()) {
+                int total = 0;
+                for (Integer i : gradeList) {
+                    total += i;
+                }
+                float subjectAvg = (float) total / gradeList.size();
+                double subjectGPA = gradepoint(Math.round(subjectAvg));
+                totalGPA += subjectGPA;
+                subjectCount++;
             }
-            subjectavg = total/gradelist.size();
-            double subjectgpa = gradepoint(Math.round(subjectavg));
-            totalgpa += subjectgpa;            
         }
 
-        return grades.size() > 0 ? (float) totalgpa / grades.size() : 0;
+        return subjectCount > 0 ? (float) totalGPA / subjectCount : 0;
     }
 
-    public double gradepoint(int subjectgrade){
-        
-        if (subjectgrade >= 93 && subjectgrade <= 100){
+    private double gradepoint(int subjectGrade) {
+        if (subjectGrade >= 93 && subjectGrade <= 100) {
             return 4.0;
-        }
-
-        else if (subjectgrade >= 90 && subjectgrade <= 92){
+        } else if (subjectGrade >= 90 && subjectGrade <= 92) {
             return 3.7;
-        }
-        
-        else if (subjectgrade >= 87 && subjectgrade <= 89){
+        } else if (subjectGrade >= 87 && subjectGrade <= 89) {
             return 3.3;
-        }
-        
-        else if (subjectgrade >= 83 && subjectgrade <= 86){
+        } else if (subjectGrade >= 83 && subjectGrade <= 86) {
             return 3.0;
-        }
-        
-        else if (subjectgrade >= 80 && subjectgrade <= 82){
+        } else if (subjectGrade >= 80 && subjectGrade <= 82) {
             return 2.7;
-        }
-        
-        else if (subjectgrade >= 77 && subjectgrade <= 79){
+        } else if (subjectGrade >= 77 && subjectGrade <= 79) {
             return 2.3;
-        }
-        
-        else if (subjectgrade >= 73 && subjectgrade <= 76){
+        } else if (subjectGrade >= 73 && subjectGrade <= 76) {
             return 2.0;
-        }
-        
-        else if (subjectgrade >= 70 && subjectgrade <= 72){
+        } else if (subjectGrade >= 70 && subjectGrade <= 72) {
             return 1.7;
-        }
-        
-        else if (subjectgrade >= 67 && subjectgrade <= 69){
+        } else if (subjectGrade >= 67 && subjectGrade <= 69) {
             return 1.3;
-        }
-        
-        else if (subjectgrade >= 65 && subjectgrade <= 66){
+        } else if (subjectGrade >= 65 && subjectGrade <= 66) {
             return 1.0;
-        }
-        
-        else {
+        } else {
             return 0.0;
         }
-        
     }
-
 }
