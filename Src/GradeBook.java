@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -30,7 +31,7 @@ public class GradeBook {
         students.get(name).addGrade(subject, grade);
     }
 
-    public int getGrade(String name, String subject) throws Exception {
+    public ArrayList<Integer> getGrade(String name, String subject) throws Exception {
         if (!students.containsKey(name)) {
             throw new Exception("Student not found");
         }
