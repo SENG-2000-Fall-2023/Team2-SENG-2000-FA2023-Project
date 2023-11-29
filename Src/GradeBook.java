@@ -1,4 +1,7 @@
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -46,6 +49,7 @@ public class GradeBook {
     }
 
     public void showAllStudentsAndGrades() {
+        sortStudents();
         for (String name : studentOrder) {
             System.out.println(name + ":");
             Student student = students.get(name);
@@ -54,6 +58,18 @@ public class GradeBook {
             }
             System.out.println();
         }
+    }
+
+    public void sortStudents () {
+
+        Collections.sort(studentOrder, new Comparator<String>() {
+            //Sorts lowercased names before Uppercased ones
+            @Override
+            public int compare(String o1, String o2) {
+                return Collator.getInstance().compare(o1, o2);
+            }
+        });
+
     }
 
     public class StudentNotFoundException extends Exception {
