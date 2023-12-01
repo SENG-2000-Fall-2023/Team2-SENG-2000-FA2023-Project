@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -10,10 +11,14 @@ public class GradeBook {
         studentOrder = new LinkedList<>();
     }
 
-    public void addStudent(String name) {
+    public void addStudent(String name) throws Exception {
         name = capitalizeFirstLetter(name);
+        if (students.containsKey(name)){
+            throw new Exception("Student already exists in gradebook");
+        }
         students.put(name, new Student(name));
         studentOrder.add(name);
+        Collections.sort(studentOrder);
     }
 
     public void removeStudent(String name) throws Exception {

@@ -59,11 +59,12 @@ public class GradebookApp {
                             }
                             break;
                         case 9:
-                            for (Student student : gradeBook.students.values()) {
-                                System.out.println("Name: " + student.name);
-                                System.out.println("Grades: " + student.grades);
-                                System.out.println("GPA: " + student.calculateGPA());
-                                System.out.println("Letter Grade: " + student.calculateLetterGrade());
+                            for (String student : gradeBook.studentOrder) {
+                                Student currentStudent = gradeBook.students.get(student);
+                                System.out.println("Name: " + currentStudent.name);
+                                System.out.println("Grades: " + currentStudent.grades);
+                                System.out.println("GPA: " + currentStudent.calculateGPA());
+                                System.out.println("Letter Grade: " + currentStudent.calculateLetterGrade());
                                 System.out.println("------------------------");
                             }
                             break;
