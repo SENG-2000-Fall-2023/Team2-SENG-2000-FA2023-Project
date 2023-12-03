@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.*;
 
-
 public class GradebookApp {
     private static final String DATA_FILE = "Src/data";
 
@@ -24,11 +23,6 @@ public class GradebookApp {
                             // Add Student
                             System.out.print("Enter student name: ");
                             String name = scanner.nextLine();
-                            while (!name.matches("[a-zA-Z]+")) {
-                                System.out.println("Invalid input. Please enter only letters.");
-                                System.out.print("Enter student name: ");
-                                name = scanner.nextLine();
-                            }
                             gradeBook.addStudent(name);
 
                             // Prompt to enter a grade for the student
@@ -39,7 +33,7 @@ public class GradebookApp {
                                 String subject = scanner.nextLine();
                                 System.out.print("Enter grade: ");
                                 int grade = scanner.nextInt();
-                                scanner.nextLine();
+                                scanner.nextLine();  // consume newline
                                 gradeBook.addGrade(name, subject, grade);
                                 System.out.print("Press 8 to save for changes to take effect!!!");
                             }
@@ -49,11 +43,6 @@ public class GradebookApp {
                             // Remove Student
                             System.out.print("Enter student name: ");
                             name = scanner.nextLine();
-                            while (!name.matches("[a-zA-Z]+")) {
-                                System.out.println("Invalid input. Please enter only letters.");
-                                System.out.print("Enter student name: ");
-                                name = scanner.nextLine();
-                            }
                             gradeBook.removeStudent(name);
                             break;
 
@@ -92,7 +81,6 @@ public class GradebookApp {
                                 }
                             }
                             break;
-
 
                         case 4:
                             // Add Grade
@@ -151,13 +139,38 @@ public class GradebookApp {
                             break;
 
                         case 10:
+                            // Export Data to Excel
+                            exportToExcel(gradeBook.students);
+                            System.out.println("Data exported to Excel successfully.");
+                            break;
+
+                        case 11:
                             // Exit
                             saveToFile(gradeBook.students, DATA_FILE);
                             return;
-                    }
 
+                        default:
+                            System.out.println("Invalid choice. Please choose a valid option.");
+                            break;
+                    }
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
+                }
+            }
+        }
+    }
+
+    private static void exportToExcel(HashMap<String, Student> students) throws IOException {
+        try (PrintWriter writer = new PrintWriter("ExportedData.csv")) {
+            writer.println("Student Name,Subject,Grade");
+
+            for (Map.Entry<String, Student> entry : students.entrySet()) {
+                String studentName = entry.getKey();
+                Student student = entry.getValue();
+
+                for (Map.Entry<String, Integer> gradeEntry : student.grades.entrySet()) {
+                    String line = String.format("%s,%s,%d", studentName, gradeEntry.getKey(), gradeEntry.getValue());
+                    writer.println(line);
                 }
             }
         }
@@ -179,8 +192,11 @@ public class GradebookApp {
                 gradeBook.studentOrder = new LinkedList<>(gradeBook.students.keySet());
                 Collections.sort(gradeBook.studentOrder);
             }
+        } catch (FileNotFoundException e) {
+            // Handle exception for file not existing
+            System.out.println("File not found. Creating a new data file.");
         } catch (IOException | ClassNotFoundException e) {
-            // Handle exception, for file not existing
+            e.printStackTrace();  // Handle other exceptions
         }
     }
 }
