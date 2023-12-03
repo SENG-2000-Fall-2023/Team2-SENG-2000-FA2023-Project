@@ -24,6 +24,11 @@ public class GradebookApp {
                             // Add Student
                             System.out.print("Enter student name: ");
                             String name = scanner.nextLine();
+                            while (!name.matches("[a-zA-Z]+")) {
+                                System.out.println("Invalid input. Please enter only letters.");
+                                System.out.print("Enter student name: ");
+                                name = scanner.nextLine();
+                            }
                             gradeBook.addStudent(name);
 
                             // Prompt to enter a grade for the student
@@ -44,6 +49,11 @@ public class GradebookApp {
                             // Remove Student
                             System.out.print("Enter student name: ");
                             name = scanner.nextLine();
+                            while (!name.matches("[a-zA-Z]+")) {
+                                System.out.println("Invalid input. Please enter only letters.");
+                                System.out.print("Enter student name: ");
+                                name = scanner.nextLine();
+                            }
                             gradeBook.removeStudent(name);
                             break;
 
