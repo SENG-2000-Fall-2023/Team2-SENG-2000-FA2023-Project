@@ -11,6 +11,14 @@ public class GradeBook {
     HashMap<String, Student> students;
     LinkedList<String> studentOrder;
 
+    public void addNoteToStudent(String name, String note) throws Exception {
+        name = capitalizeFirstLetter(name);
+        if (!students.containsKey(name)) {
+            throw new Exception("Student not found");
+        }
+        students.get(name).addNote(note);
+    }
+
     public GradeBook() {
         students = new HashMap<>();
         studentOrder = new LinkedList<>();
@@ -58,9 +66,11 @@ public class GradeBook {
     }
 
     public String capitalizeFirstLetter(String word) {
+        if (word == null || word.isEmpty()) {
+            return word;
+        }
         word = word.toLowerCase();
-        word = word.substring(0,1).toUpperCase() + word.substring(1);
-        return word;
+        return Character.toUpperCase(word.charAt(0)) + word.substring(1);
     }
 
     public void addGrade(String name, String subject, int grade) throws Exception {
