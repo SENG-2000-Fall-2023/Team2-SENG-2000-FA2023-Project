@@ -156,6 +156,20 @@ public class GradebookApp {
                             break;
 
                         case 11:
+                            System.out.print("Enter student name to add a note: ");
+                            String studentName = scanner.nextLine().trim();
+                            System.out.print("Enter note: ");
+                            String note = scanner.nextLine();
+        
+                            try {
+                                gradeBook.addNoteToStudent(studentName, note);
+                                System.out.println("Note added successfully.");
+                            } catch (Exception e) {
+                                System.out.println(e.getMessage());
+                            }
+                            break;
+        
+                        case 12:
                             // Exit
                             saveToFile(gradeBook.students, DATA_FILE);
                             return;
