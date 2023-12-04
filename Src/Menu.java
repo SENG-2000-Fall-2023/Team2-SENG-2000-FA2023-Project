@@ -14,7 +14,8 @@ public class Menu {
         System.out.println("|   8. Save to File                 |");
         System.out.println("|   9. Show All Student Data        |");
         System.out.println("|   10. Export Data to Excel        |");
-        System.out.println("|   11. Exit                        |");
+        System.out.println("|   11. Add Note                    |");
+        System.out.println("|   12. Exit                        |");
         System.out.println("====================================\n");
         System.out.print("Enter your choice: ");
     }
