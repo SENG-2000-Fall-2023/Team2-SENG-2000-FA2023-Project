@@ -14,8 +14,10 @@ public class Menu {
         System.out.println("|   8. Save to File                 |");
         System.out.println("|   9. Show All Student Data        |");
         System.out.println("|   10. Exit                        |");
+        System.out.println("|   11. Exit                        |");
         System.out.println("====================================\n");
         System.out.print("Enter your choice: ");
     }
 }
-
+// add student class and emergency contact
+// student class fresh,soph,junior,senior
