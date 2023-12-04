@@ -5,11 +5,20 @@ public class Student implements Serializable {
     String name;
     HashMap<String, Integer> grades;
     float GPA;
+    String note; // New field for the note
+
+    // existing constructor and methods...
+
+    // New method to add a note
+    public void addNote(String note) {
+        this.note = note;
+    }
 
     public Student(String name) {
         this.name = name;
         this.grades = new HashMap<>();
         this.GPA = 0;
+        this.note = ""; // Initialize the note field
     }
 
     public void addGrade(String subject, int grade) {
