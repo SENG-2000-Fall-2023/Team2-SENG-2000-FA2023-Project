@@ -1,6 +1,11 @@
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+
 
 public class GradeBook {
     HashMap<String, Student> students;
@@ -68,8 +73,8 @@ public class GradeBook {
         if (grade < 0 || grade > 100) {
             throw new Exception("Invalid grade entered");
         }
-
         students.get(name).addGrade(subject, grade);
+        students.get(name).GPA = students.get(name).calculateGPA();
     }
 
     public int getGrade(String name, String subject) throws Exception {
@@ -86,7 +91,7 @@ public class GradeBook {
         if (!students.containsKey(name)) {
             throw new Exception("Student not found");
         }
-        return students.get(name).calculateGPA();
+        return students.get(name).GPA;
     }
 
     public void editGrade(String name, String subject, int newGrade) throws Exception {
@@ -105,6 +110,7 @@ public class GradeBook {
         }
 
         students.get(name).grades.put(subject, newGrade);
+        students.get(name).GPA = students.get(name).calculateGPA();
     }
 
     public String getLetterGrade(String name) throws Exception {
@@ -113,5 +119,37 @@ public class GradeBook {
             throw new Exception("Student not found");
         }
         return students.get(name).calculateLetterGrade();
+    }
+
+    public void sortByGPA() {
+        int i = 0;
+        int j = 0;
+        //To sort descending order, the largest value must be found unlike traditional selection sort
+        int indexLargest = 0;
+
+        List<Student> sortedStudents = new ArrayList<>();
+
+        //Add only values from Students to List
+        for (Map.Entry<String, Student> entry : students.entrySet()){
+            sortedStudents.add(entry.getValue());
+        } 
+
+        for (i = 0; i < sortedStudents.size() - 1; ++i) {
+
+            indexLargest = i;
+            for (j = i + 1; j < sortedStudents.size(); ++j) {
+                if(sortedStudents.get(j).GPA > sortedStudents.get(indexLargest).GPA) {
+                    indexLargest = j;
+                }
+            }
+
+            Collections.swap(sortedStudents, i, indexLargest);
+
+        }
+
+        studentOrder.clear();
+        for (Student studentName: sortedStudents){
+            studentOrder.add(studentName.name);
+        }
     }
 }

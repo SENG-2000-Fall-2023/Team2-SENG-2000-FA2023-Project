@@ -138,13 +138,24 @@ public class GradebookApp {
                         case 9:
                             // Show All Student Data
                             gradeBook.students = FileHandler.loadFromFile(DATA_FILE);
+                            //Give user option on how to view grade reports
+                            System.out.print("Do you want to sort student data by name or GPA? (GPA = 1. Name = 2): ");
+                            String enterSortingChoice = scanner.nextLine().toLowerCase();
+                            //Sort by GPA
+                            if (enterSortingChoice.equals("1")) {
+                                gradeBook.sortByGPA();
+                            }
+
+                            if(enterSortingChoice.equals("2")) {
+                                Collections.sort(gradeBook.studentOrder);
+                            }
 
                             // Display student information
                             for (String student : gradeBook.studentOrder) {
                                 Student currentStudent = gradeBook.students.get(student);
                                 System.out.println("Name: " + currentStudent.name);
                                 System.out.println("Grades: " + currentStudent.grades);
-                                System.out.println("GPA: " + currentStudent.calculateGPA());
+                                System.out.println("GPA: " + currentStudent.GPA);
                                 System.out.println("Letter Grade: " + currentStudent.calculateLetterGrade());
                                 System.out.println("------------------------");
                             }

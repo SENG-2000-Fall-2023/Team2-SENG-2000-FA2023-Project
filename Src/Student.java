@@ -4,10 +4,12 @@ import java.util.HashMap;
 public class Student implements Serializable {
     String name;
     HashMap<String, Integer> grades;
+    float GPA;
 
     public Student(String name) {
         this.name = name;
         this.grades = new HashMap<>();
+        this.GPA = 0;
     }
 
     public void addGrade(String subject, int grade) {
