@@ -1,0 +1,23 @@
+#Student GradeBook Requirements
+
+
+- **Student Management**
+Use Case: Add or remove students from class roster
+
+- **Grade Entry**
+Use Case: Enter grades for a student in class roster for a specified subject
+
+- **Grade Validation**
+Use Case: Handle cases where invalid grades are entered (i.e. Negative numbers, Grades above 100)
+
+- **Student Specific Grade Viewing**
+Use Case: Access grade report for a specified student using their name
+
+- **Class roster Grade Viewing** 
+Use Case: List grade reports for all student in the roster
+
+- **GPA Calculation**
+Use Case: Calculate student's GPA using their grades across all subjects
+
+- **Export and Import Grade file**
+Use Case: Save and load class roster from a file
